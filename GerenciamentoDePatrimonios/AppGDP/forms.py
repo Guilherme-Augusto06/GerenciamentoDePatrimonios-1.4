@@ -2,7 +2,7 @@ from django import forms
 
 
 class FormLogin(forms.Form):
-    user = forms.CharField(label="Usuario", max_length=40)
+    email = forms.EmailField(label="Email", max_length=80)
     password = forms.CharField(label="Senha", widget=forms.PasswordInput)
 
 class FormCadastro(forms.Form):
