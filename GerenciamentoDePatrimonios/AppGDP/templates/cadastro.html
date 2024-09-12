@@ -1,0 +1,47 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block body %}
+
+{% include "navbar.html" %}
+<main class="bg-body-l-w">
+    <form class="login-form">
+        <h1 class="titleLogin">Cadastro</h1>
+            
+        <div class="input-group ig1">
+            <label for="email"><b>Nome</b></label>
+            <div class="input-container">
+                <input class="input-login" type="email" id="email" placeholder="Insira o Nome do usuário">
+            </div>
+        </div>
+        <div class="input-group ig1">
+            <label for="email"><b>ID</b></label>
+            <div class="input-container">
+                <input class="input-login" type="email" id="email" placeholder="Insira o ID do usuário">
+            </div>
+        </div>
+        <div class="input-group ig1">
+            <label for="email"><b>Sala</b></label>
+            <div class="input-container">
+                <input class="input-login" type="email" id="email" placeholder="Insira a Sala do usuário">
+            </div>
+        </div>
+        <div class="input-group ig1">
+            <label for="email"><b>Email</b></label>
+            <div class="input-container">
+                <input class="input-login" type="email" id="email" placeholder="Insira seu email">
+                <span class="material-symbols-outlined icon">mail</span>
+            </div>
+        </div>
+        <div class="input-group ig2">
+            <label for="senha"><b>Senha</b></label>
+            <div class="input-container">
+                <input class="input-login" type="password" id="senha" placeholder="Insira sua senha">
+                <span class="material-symbols-outlined icon">visibility_off</span>
+            </div>
+        </div>
+        <button type="submit" class="btn-login">Entrar</button>
+    </form>
+</main>
+
+{% endblock %}

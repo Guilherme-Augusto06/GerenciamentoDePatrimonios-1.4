@@ -1,0 +1,48 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block body %}
+
+{% include "navbar.html" %}
+<header class="cabecalho-welcome">
+    <div class="conteudo-cabecalho">
+        <h1>Bem-vindo ao <span class="destaque"> <br> Patrimônios </span> & <span class="destaque">Ordem</span></h1>
+        <p>Sua solução definitiva para gerenciar patrimônios de maneira eficiente e organizada.</p>
+        <button class="botao-cadastro">Cadastre-se</button>
+    </div>
+    <div class="imagem-cabecalho">
+        <span class="material-symbols-outlined arrow_back_ios">
+            arrow_back_ios
+        </span>
+        <img src="{% static 'img/img1.png' %}"
+            alt="Imagem Patrimônios">
+        <span class="material-symbols-outlined arrow_forward_ios">
+            arrow_forward_ios
+        </span>
+    </div>
+</header>
+<section class="servicos">
+    <br><br><br><br><br><br>
+    <h2>Serviços</h2>
+    <div class="container-servicos">
+        <a href="https://www.sp.senai.br">
+            <img src="{% static 'img/adicionar.png' %}" alt="Sala Exemplo">
+        </a>
+
+        <a href="https://www.sp.senai.br">
+            <img src="{% static 'img/adicionar&excluir.png' %}" alt="Sala Exemplo">
+        </a>
+
+        <a href="https://www.sp.senai.br">
+            <img src="{% static 'img/verTable.png' %}" alt="Sala Exemplo">
+        </a>
+
+        <a href="https://www.sp.senai.br">
+            <img src="{% static 'img/editar.png' %}" alt="Sala Exemplo">
+        </a>
+    </div>
+</section>
+<section>
+
+</section>
+{% endblock %}
