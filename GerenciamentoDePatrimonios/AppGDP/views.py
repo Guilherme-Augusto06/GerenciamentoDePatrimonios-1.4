@@ -2,8 +2,10 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
-from AppGDP.models import Senai
-from AppGDP.forms import FormLogin
+from .forms import FormLogin
+from .models import Senai
+from .models import Usuario
+from django.contrib import messages
 
 # Create your views here.
 
@@ -38,22 +40,19 @@ def login(request):
     if request.method == 'POST':
         form = FormLogin(request.POST)
         if form.is_valid():
-            var_usuario = form.cleaned_data['user']
-            var_senha = form.cleaned_data['password']
+            email = form.cleaned_data['email']
+            senha = form.cleaned_data['password']
             
-            user = authenticate(username=var_usuario, password=var_senha)
-
-            if user is not None:
-                auth_login(request, user)
-                if user.groups.filter(name='Coordenador').exists():
-                    return redirect('/homepageAdmin')
-                elif user.groups.filter(name='Professor').exists():
-                    return redirect('/homepageProfessor')
-                else:
-                    return redirect('/')
-            else:
-                print('Login falhou')
+            # Autenticar o usuário
+            try:
+                usuario = Usuario.objects.get(email=email, senha=senha)
+                # Se o usuário existir, faça o login manualmente
+                auth_login(request, usuario)
+                return redirect('/profile')  # Redireciona após login bem-sucedido
+            except Usuario.DoesNotExist:
+                messages.error(request, 'Login falhou. Verifique suas credenciais.')
     else:
         form = FormLogin()
-        context['form'] = form
+    
+    context['form'] = form
     return render(request, 'login.html', context)
