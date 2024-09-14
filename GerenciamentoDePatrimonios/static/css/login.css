@@ -136,3 +136,24 @@ main {
         font-size: 20px;
     }
 }
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%; /* Faz os campos ocuparem 100% da largura disponível */
+    padding: 10px; /* Adiciona espaço interno */
+    margin-bottom: 15px; /* Espaçamento entre os campos */
+    border: 1px solid #ccc; /* Cor da borda */
+    border-radius: 4px; /* Arredonda os cantos */
+    box-sizing: border-box; /* Certifica que o padding é incluído na largura total */
+}
+
+input[type="submit"] {
+    background-color: #4CAF50; /* Cor do botão */
+    color: white; /* Cor do texto do botão */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}

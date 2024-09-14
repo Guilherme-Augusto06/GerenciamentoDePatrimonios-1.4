@@ -2,10 +2,9 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
-from .forms import FormLogin
+from .forms import FormLogin, formCadastroUsuario
 from .models import Senai
-from .models import Usuario
-from django.contrib import messages
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -18,8 +17,6 @@ def homepageDark(request):
 def login(request):
     return render(request, 'login.html')
 
-def cadastro(request):
-    return render(request, 'cadastro.html')
 
 def profile(request):
     return render(request, 'profile.html')
@@ -33,6 +30,31 @@ def welcomeHomepage(request):
 def itens(request):
     return render(request, 'itens.html')
 
+def cadastroUsuario(request):
+    context = {}
+    dadosSenai = Senai.objects.all()
+    context["dadosSenai"] = dadosSenai
+    if request.method == 'POST':
+        form = formCadastroUsuario(request.POST)
+        if form.is_valid():
+            var_nome = form.cleaned_data['first_name']
+            var_sobrenome = form.cleaned_data['last_name']
+            var_usuario = form.cleaned_data['user']
+            var_email = form.cleaned_data['email']
+            var_senha = form.cleaned_data['password']
+
+            user = User.objects.create_user(username=var_usuario, email=var_email, password=var_senha)
+            user.first_name = var_nome
+            user.last_name = var_sobrenome
+            user.save()
+            return redirect('/login')
+            print('Cadastro realizado com sucesso')
+    else:
+        form = formCadastroUsuario()
+        context['form'] = form
+        print('Cadastro falhou')
+    return render(request, 'cadastroUsuario.html', context)
+
 def login(request):
     context = {}
     dadosSenai = Senai.objects.all()
@@ -40,19 +62,18 @@ def login(request):
     if request.method == 'POST':
         form = FormLogin(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
-            senha = form.cleaned_data['password']
+
+            var_usuario = form.cleaned_data['user']
+            var_senha = form.cleaned_data['password']
             
-            # Autenticar o usuário
-            try:
-                usuario = Usuario.objects.get(email=email, senha=senha)
-                # Se o usuário existir, faça o login manualmente
-                auth_login(request, usuario)
-                return redirect('/profile')  # Redireciona após login bem-sucedido
-            except Usuario.DoesNotExist:
-                messages.error(request, 'Login falhou. Verifique suas credenciais.')
+            user = authenticate(username=var_usuario, password=var_senha)
+
+            if user is not None:
+                auth_login(request, user)
+                return redirect('/welcomeHomepage')  
+            else:
+                print('Login falhou')
     else:
         form = FormLogin()
-    
-    context['form'] = form
-    return render(request, 'login.html', context)
+        context['form'] = form
+        return render(request, 'login.html', context)

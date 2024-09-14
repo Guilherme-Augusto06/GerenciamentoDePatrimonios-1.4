@@ -1,19 +1,14 @@
 from django import forms
 
+from django import forms
+
+class formCadastroUsuario(forms.Form):
+    first_name = forms.CharField(label="Nome", max_length=40, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(label="Sobrenome", max_length=40, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    user = forms.CharField(label="Usuário", max_length=40, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(label="Email", max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(label="Senha", widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
 class FormLogin(forms.Form):
-    email = forms.EmailField(label="Email", max_length=80, widget=forms.EmailInput(attrs={
-        'class': 'input-login',
-        'placeholder': 'Insira seu email'
-    }))
-    password = forms.CharField(label="Senha", widget=forms.PasswordInput(attrs={
-        'class': 'input-login',
-        'placeholder': 'Insira sua senha'
-    }))
-
-
-class FormCadastro(forms.Form):
-    nome = forms.CharField(label="Nome", max_length=50)
-    nif = forms.CharField(label="NIF", max_length=8)
-    sala = forms.CharField(label="Sala", max_length=20)
-    email = forms.EmailField(label="Email", max_length=80)
-    senha = forms.CharField(label="Senha", widget=forms.PasswordInput)
+    user = forms.CharField(label="Usuario", max_length=40)
+    password = forms.CharField(label="Senha", widget=forms.PasswordInput)
