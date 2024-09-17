@@ -16,6 +16,7 @@ class Inventario(models.Model):
     num_inventario = models.CharField(max_length=10, unique=True)
     denominacao = models.CharField(max_length=255)
     localizacao = models.CharField(max_length=10)
+    link_imagem = models.URLField(max_length=500, blank=True, null=True) 
 
     def __str__(self):
         return f"{self.num_inventario} - {self.denominacao}"
