@@ -5,6 +5,7 @@ from django.contrib.auth import login as auth_login
 from .forms import FormLogin, formCadastroUsuario
 from .models import Senai
 from django.contrib.auth.models import User
+from .models import Inventario
 
 # Create your views here.
 
@@ -27,8 +28,15 @@ def faq(request):
 def welcomeHomepage(request):
     return render(request, 'welcomeHomepage.html')
 
+# Importar o modelo de itens (substitua Item pelo nome correto do seu modelo)
+
+
 def itens(request):
-    return render(request, 'itens.html')
+    # Obter todos os itens do inventário
+    inventario = Inventario.objects.all()
+    # Passar os itens para o template
+    return render(request, 'itens.html', {'inventario': inventario})
+
 
 def cadastroUsuario(request):
     context = {}
