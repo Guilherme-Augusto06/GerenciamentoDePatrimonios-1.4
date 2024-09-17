@@ -8,7 +8,7 @@
     <h2>Sala - C13</h2>
 
     <div class="search-container">
-        <input type="text" placeholder="Buscar..."> 
+        <input class="input-itens" type="text" placeholder="Buscar..."> 
         <button>
             <span class="material-symbols-outlined" id="iconItens">
                 edit
@@ -35,7 +35,7 @@
         {% for item in inventario %}
         <div class="item-card">
             <div class="bg-img">
-                <img src="{% static 'img/cadeira.png' %}" alt="{{ item.denominacao }}">
+                <img src="{{ item.link_imagem }}" alt="{{ item.denominacao }}">
             </div>
             <div class="inf">
                 <h3>{{ item.denominacao }}</h3>

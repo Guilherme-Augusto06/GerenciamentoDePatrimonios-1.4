@@ -135,6 +135,10 @@
     transform: translateY(-5px);
 }
 
+.search-container input{
+    margin-bottom: 0px;
+}
+
 @media (max-width: 768px) {
     .search-container {
          /* Coloca os itens em uma coluna */
