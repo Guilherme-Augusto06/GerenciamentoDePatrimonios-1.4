@@ -104,3 +104,13 @@ def login(request):
         form = FormLogin()
         context['form'] = form
         return render(request, 'login.html', context)
+    
+
+def buscar_itens(request):
+    query = request.GET.get('q')  # Pega o valor digitado no campo de busca
+    if query:
+        inventario = Inventario.objects.filter(num_inventario__icontains=query)
+    else:
+        inventario = Inventario.objects.all()
+    
+    return render(request, 'seu_template.html', {'inventario': inventario})

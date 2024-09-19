@@ -21,11 +21,9 @@
 /* Container de Busca e Adição de Itens */
 .search-container {
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-wrap: wrap; /* Permite que os itens se movam para a linha abaixo em telas menores */
-    margin: 20px 0;
-    gap: 20px;
+    gap: 10px; /* Espaço entre o input e os botões */
+    margin-bottom: 20px; /* Espaçamento inferior */
 }
 
 .search-container input[type="text"] {
