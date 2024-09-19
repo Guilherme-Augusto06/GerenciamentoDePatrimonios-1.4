@@ -6,6 +6,7 @@ from .forms import FormLogin, formCadastroUsuario, InventarioForm
 from .models import Senai
 from django.contrib.auth.models import User
 from .models import Inventario
+from django.core.cache import cache
 
 
 # Create your views here.
@@ -35,6 +36,7 @@ def welcomeHomepage(request):
 def itens(request):
     inventario = Inventario.objects.all()
     item_especifico = inventario.first()  # ou qualquer outro critério para escolher o item
+   
     if request.method == 'POST':
         form = InventarioForm(request.POST)
         if form.is_valid():
@@ -45,16 +47,22 @@ def itens(request):
     
     return render(request, 'itens.html', {'form': form, 'inventario': inventario, 'item_especifico': item_especifico})
 
+
+
 def adicionar_inventario(request):
     if request.method == 'POST':
         form = InventarioForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('itens')  # Redireciona para a página de itens
+            # Redirecionar para a rota inicial, independente de onde estava
     else:
         form = InventarioForm()
     
-    return render(request, 'itens.html', {'form': form, 'inventario': Inventario.objects.all()})
+    # Se precisar listar todos os itens no modal de adição, inclua isso:
+    inventario = Inventario.objects.all()
+    
+    return render(request, 'itens.html', {'form': form, 'inventario': inventario})
+
 
 
 def cadastroUsuario(request):
@@ -107,10 +115,15 @@ def login(request):
     
 
 def buscar_itens(request):
+    context = {}
     query = request.GET.get('q')  # Pega o valor digitado no campo de busca
     if query:
         inventario = Inventario.objects.filter(num_inventario__icontains=query)
     else:
         inventario = Inventario.objects.all()
+
+    context['inventario'] = inventario
+    form = InventarioForm()
+    context['form'] = form
     
-    return render(request, 'seu_template.html', {'inventario': inventario})
+    return render(request, 'itens.html', context)
