@@ -74,6 +74,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     gap: 20px;
     margin-top: 40px;
 
@@ -98,17 +99,24 @@
 }
 
 .bg-img{
-    width: 250px;
+    width: 700px;
     height: 280.69px;
     top: 282px;
     left: 23.15px;
     gap: 0px;
-    border-radius: 55px 43px 34px 30px;
+    border-radius: 55px;
     opacity: 0px;
     background: rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.bg-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    
 }
 
 .inf{
