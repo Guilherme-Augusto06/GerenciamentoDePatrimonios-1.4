@@ -2,10 +2,11 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
-from .forms import FormLogin, formCadastroUsuario
+from .forms import FormLogin, formCadastroUsuario, InventarioForm
 from .models import Senai
 from django.contrib.auth.models import User
 from .models import Inventario
+
 
 # Create your views here.
 
@@ -32,10 +33,28 @@ def welcomeHomepage(request):
 
 
 def itens(request):
-    # Obter todos os itens do inventário
     inventario = Inventario.objects.all()
-    # Passar os itens para o template
-    return render(request, 'itens.html', {'inventario': inventario})
+    item_especifico = inventario.first()  # ou qualquer outro critério para escolher o item
+    if request.method == 'POST':
+        form = InventarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('itens')  # Redireciona para a página de itens
+    else:
+        form = InventarioForm()
+    
+    return render(request, 'itens.html', {'form': form, 'inventario': inventario, 'item_especifico': item_especifico})
+
+def adicionar_inventario(request):
+    if request.method == 'POST':
+        form = InventarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('itens')  # Redireciona para a página de itens
+    else:
+        form = InventarioForm()
+    
+    return render(request, 'itens.html', {'form': form, 'inventario': Inventario.objects.all()})
 
 
 def cadastroUsuario(request):

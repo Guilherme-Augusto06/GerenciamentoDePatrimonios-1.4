@@ -3,9 +3,11 @@
 
 {% block body %}
 {% include "navbar.html" %}
+
 <main class="bg-body-i-w">
+    
     <h1>Itens</h1>
-    <h2>Sala - C13</h2>
+    <h2>Sala - {{ item.sala }}</h2>
 
     <div class="search-container">
         <input class="input-itens" type="text" placeholder="Buscar..."> 
@@ -24,10 +26,9 @@
                 filter_list
             </span>
         </button>
-        <button class="add-button">
-            <span class="material-symbols-outlined" id="iconItens">
-                add_circle
-            </span> <p class="add-text">Adicionar</p>
+        <button class="add-button" onclick="openModal('modalAddItem')">
+            <span class="material-symbols-outlined" id="iconItens">add_circle</span>
+            <p class="add-text">Adicionar</p>
         </button>
     </div>
 
@@ -44,5 +45,83 @@
         </div>
         {% endfor %}
     </div>
+
+    <!-- Modal de Adicionar Item -->
+    <div id="modalAddItem" class="modal">
+        <div class="modal-content">
+            <button type="button" class="btn-close" onclick="closeModal('modalAddItem')">X</button>
+            <h2 class="adicionarH2Itens">Adicionar Item</h2>
+            <form id="addItemForm" method="POST" action="{% url 'adicionar_inventario' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="modal-actions">
+                    <button type="submit" class="btn-add">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="modalConfirmation" class="modal-confirmation">
+        <div class="modal-content-confirmation">
+            <h2>Item Adicionado!</h2>
+            <p>O item foi adicionado com sucesso ao inventário.</p>
+            <button class="btn-close-confirmation" onclick="closeConfirmation()">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        // Função para abrir modais
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        // Função para fechar modais
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Fechar modal ao clicar fora do conteúdo
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+
+        // Função para abrir modal de confirmação
+        function openConfirmation() {
+            document.getElementById('modalConfirmation').style.display = 'block';
+        }
+
+        // Função para fechar modal de confirmação
+        function closeConfirmation() {
+            document.getElementById('modalConfirmation').style.display = 'none';
+        }
+
+        // Envio de formulário com AJAX
+        document.getElementById('addItemForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evitar o envio padrão
+
+            const formData = new FormData(this); // Obter dados do formulário
+
+            fetch("{% url 'adicionar_inventario' %}", {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                if (response.ok) {
+                    closeModal('modalAddItem'); // Fechar a modal de adição
+                    openConfirmation(); // Abrir modal de confirmação
+                } else {
+                    // Lidar com erros se necessário
+                    alert("Erro ao adicionar o item.");
+                }
+            })
+            .catch(error => {
+                console.error("Erro:", error);
+            });
+        });
+    </script>
+
 </main>
 {% endblock %}
