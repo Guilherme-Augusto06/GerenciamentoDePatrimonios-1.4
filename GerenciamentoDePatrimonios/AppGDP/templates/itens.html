@@ -15,14 +15,11 @@
                     <span class="material-symbols-outlined" id="iconItens">search</span>
                 </button>
                 <input class="input-itens" type="text" name="q" id="searchInput" placeholder="Buscar por número de inventário..."> 
-
             </div>
         </form>
 
         <button>
-            <span class="material-symbols-outlined" id="iconItens">
-                filter_list
-            </span>
+            <span class="material-symbols-outlined" id="iconItens">filter_list</span>
         </button>
 
         <button class="add-button" onclick="openModal('modalAddItem')">
@@ -33,7 +30,7 @@
 
     <div class="items-container">
         {% for item in inventario %}
-        <div class="item-card">
+        <div class="item-card" onclick="openItemModal('{{ item.denominacao }}', '{{ item.num_inventario }}', '{{ item.link_imagem }}', '{{ item.localizacao }}', '{{ item.sala }}')">
             <div class="bg-img">
                 <img src="{{ item.link_imagem }}" alt="{{ item.denominacao }}">
             </div>
@@ -43,6 +40,36 @@
             </div>
         </div>
         {% endfor %}
+    </div>
+
+    <!-- Modal de Visualização do Item -->
+    <div id="modalItem" class="modal">
+        <div class="modal-content">
+            <button type="button" class="btn-close" onclick="closeModal('modalItem')">X</button>
+            <h2 class="adicionarH2Itens">Informações</h2>
+            <form>
+                <label for="denominacaoInput">Denominação:</label>
+                <input type="text" id="denominacaoInput" name="denominacao" value="" readonly>
+
+                <label for="numInventarioInput">Número de Inventário:</label>
+                <input type="text" id="numInventarioInput" name="numInventario" value="" readonly>
+                
+                <label for="localizacaoInput">Localização: </label>
+                <input type="text" id="localizacaoInput" name="lozalizacao" value="" readonly>
+
+                <label for="salaInput">Sala:</label>
+                <input type="text" id="salaInput" name="sala" value="" readonly>
+
+                <label for="imagemInput">Imagem:</label>
+                <input type="text" id="imagemInput" name="imagem" value="" readonly>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-close" onclick="closeModal('modalItem')">X</button>
+                </div>
+                
+            </form>
+            
+        </div>
     </div>
 
     <!-- Modal de Adicionar Item -->
@@ -57,11 +84,8 @@
                     <button type="submit" class="btn-add">Adicionar</button>
                 </div>
             </form>
-            
         </div>
     </div>
-
-
 
     <!-- Modal de Confirmação -->
     <div id="modalConfirmation" class="modal-confirmation">
@@ -73,6 +97,17 @@
     </div>
 
     <script>
+        function openItemModal(denominacao, numInventario, linkImagem, localizacao, sala) {
+            document.getElementById('denominacaoInput').value = denominacao;
+            document.getElementById('numInventarioInput').value = numInventario;
+            document.getElementById('imagemInput').value = linkImagem;
+            document.getElementById('localizacaoInput').value = localizacao;
+            document.getElementById('salaInput').value = sala
+
+            
+            openModal('modalItem');
+        }
+
         function openModal(modalId) {
             document.getElementById(modalId).style.display = 'block';
         }
@@ -80,6 +115,7 @@
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
         }
+
         window.onclick = function (event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = "none";
@@ -97,8 +133,6 @@
 
         document.getElementById('addItemForm').addEventListener('submit', function(event) {
             event.preventDefault();
-
-
             const formData = new FormData(this);
 
             fetch("{% url 'adicionar_inventario' %}", {
