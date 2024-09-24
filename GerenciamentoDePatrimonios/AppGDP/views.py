@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from .models import Inventario
 from django.core.cache import cache
 
-
 # Create your views here.
 
 def homepage(request):

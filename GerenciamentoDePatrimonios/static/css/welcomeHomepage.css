@@ -7,11 +7,6 @@
     padding: 0;
 }
 
-h1, h2 {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-}
-
 /* Cabeçalho */
 .cabecalho-welcome {
     display: flex;
@@ -28,6 +23,16 @@ h1, h2 {
     max-width: 50%;
 }
 
+.conteudo-cabecalho h1{
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    font-size: 52px
+}
+
+.conteudo-cabecalho p{
+    font-size: 32px;
+}
+
 .cabecalho h1 {
     font-size: 40px;
     margin-bottom:30px;
@@ -35,8 +40,7 @@ h1, h2 {
 
 
 .destaque {
-    
-    font-size: 35px;
+    font-size: 52px;
     color: #B01818;
 }
 
@@ -52,8 +56,10 @@ h1, h2 {
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    font-size: 15px;
+    font-size: 30px;
     transition: background-color 0.3s ease;
+    width: 291px;
+    height: 60px;
 }
 
 .botao-cadastro:hover {
@@ -258,7 +264,7 @@ h1, h2 {
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
     max-width: 1920px;
@@ -282,6 +288,8 @@ h1, h2 {
     position: relative;
     overflow: hidden;
     border-radius: 15px 15px 0 0;
+    width: 339px;
+    height:334px;
 }
 
 .image-container img {
@@ -383,7 +391,7 @@ h1, h2 {
 }
 
 .carousel-container img {
-    width: 200px;
+    width: 480px;
     height: 422px;
     border-radius: 10px;
     transition: transform 0.5s ease-in-out;
@@ -405,5 +413,5 @@ h1, h2 {
 }
 
 .imagem-cabecalho .material-symbols-outlined.arrow_forward_ios {
-    right: -30px;
+    right: -95px;
 }
