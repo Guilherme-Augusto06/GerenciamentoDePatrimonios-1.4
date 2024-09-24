@@ -156,6 +156,11 @@
     color: #666;
 }
 
+.div-cartao{
+    width: 210px;
+    height: 199px;
+}
+
 .button-view{
     margin-top: 20px;
     font-size: 25px;
@@ -265,22 +270,23 @@
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
     padding: 20px;
-    max-width: 1920px;
 }
 
 /* Cartão de cada item */
-.item-card {
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: white;
+.item-card-w {
+    width: 190px;
+    height: 254px;
+    border-radius: 30px;
+    background: lightgrey;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
     transition: transform 0.3s ease;
+    margin-bottom: 200px;
 }
 
-.item-card:hover {
+.item-card-w:hover {
     transform: translateY(-5px);
+    cursor: pointer;
 }
 
 /* Container da imagem */
@@ -304,7 +310,7 @@
     position: absolute;
     bottom: 10px;
     left: 10px;
-    background-color: #E63A3A;
+    background-color: #B01818;
     color: white;
     font-size: 14px;
     font-weight: bold;
@@ -394,24 +400,5 @@
     width: 480px;
     height: 422px;
     border-radius: 10px;
-    transition: transform 0.5s ease-in-out;
     flex-shrink: 0;
-}
-
-.imagem-cabecalho .material-symbols-outlined {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 35px;
-    color: #333;
-    cursor: pointer;
-    z-index: 1;
-}
-
-.imagem-cabecalho .material-symbols-outlined.arrow_back_ios {
-    left: -40px;
-}
-
-.imagem-cabecalho .material-symbols-outlined.arrow_forward_ios {
-    right: -95px;
 }
