@@ -63,7 +63,20 @@ def adicionar_inventario(request):
     
     return render(request, 'itens.html', {'form': form, 'inventario': inventario})
 
+def editar_inventario(request):
+    context = {}
+    dadosSenai = Senai.objects.all()
+    context["dadosSenai"] = dadosSenai
+    if request.method == 'UPDATE':
+        form = InventarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('itens')
+    else:
+        form = InventarioForm()
+        context['form'] = form
 
+    return render(request, 'itens.html', context)
 
 def cadastroUsuario(request):
     context = {}
@@ -127,3 +140,4 @@ def buscar_itens(request):
     context['form'] = form
     
     return render(request, 'itens.html', context)
+
