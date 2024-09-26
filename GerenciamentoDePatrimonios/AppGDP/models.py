@@ -21,3 +21,14 @@ class Inventario(models.Model):
 
     def __str__(self):
         return f"{self.num_inventario} - {self.denominacao}"
+    
+
+class Sala (models.Model):
+    sala = models.CharField(max_length=30)
+    localizacao = models.CharField(max_length=10)
+    descricao = models.TextField(max_length=1500)
+    responsavel = models.CharField(max_length=50)
+    link_imagem = models.URLField(max_length=500, blank=True, null=True)
+
+    def __str__(self):
+        return self.sala
