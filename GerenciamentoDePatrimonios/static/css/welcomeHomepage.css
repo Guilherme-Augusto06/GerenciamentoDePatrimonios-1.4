@@ -15,8 +15,10 @@
     padding: 60px 60px;
     background-color: #ffffff;
     color: #333;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     flex-wrap: wrap; /* Responsivo */
+    max-width: 1900px; /* Defina uma largura máxima */
+    margin: 0 auto; /* Centraliza a div horizontalmente */
+    position: relative; /* Para garantir que ela fique no fluxo do documento */
 }
 
 .conteudo-cabecalho {
@@ -88,7 +90,8 @@
     }
 
     .box {
-        margin: 20px 0; /* Adiciona espaço entre a box e o conteúdo acima */
+        margin: 20px; /* Adiciona espaço entre a box e o conteúdo acima */
+        margin-top: 100px;
     }
 }
 
@@ -167,6 +170,14 @@
 }
 
 /* Seção de Salas */
+.salas-section{
+    max-width: 1900px; /* Define uma largura máxima para a seção */
+    margin: 0 auto; /* Centraliza a seção horizontalmente */
+    padding: 40px 20px;
+    background-color: #ffffff;
+    
+}
+
 .salas {
     padding: 40px 20px;
     background-color: #ffffff;
@@ -270,6 +281,7 @@
     flex-flow: row wrap;
     padding: 20px;
     padding-left: 170px;
+    max-width: 1900px;
 }
 
 /* Cartão de cada item */
