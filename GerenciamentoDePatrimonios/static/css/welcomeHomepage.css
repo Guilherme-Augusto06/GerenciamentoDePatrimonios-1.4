@@ -69,12 +69,10 @@
 .box{
     width: 220px;
     height: 220px;
-    transform-style: preserve-3d;
-    animation: myslider 10s linear infinite;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 20px; /* Ajuste de margem */
+    margin-right: 60px;
 }
 
 @media (max-width: 1024px) {

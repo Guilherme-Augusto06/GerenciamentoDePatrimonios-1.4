@@ -179,7 +179,7 @@
     width: 100%; /* Garante que o contêiner ocupe toda a largura */
 }
 
-.btn-edit, .btn-delete {
+.editButton, .btn-delete, .saveButton {
     background-color: #B01818;
     border: none;
     padding: 15px 25px; /* Tamanho dos botões */
@@ -193,7 +193,7 @@
     width: 150px; /* Largura fixa igual para ambos os botões */
 }
 
-.btn-edit:hover, .btn-delete:hover {
+.editButton:hover, .btn-delete:hover, .saveButton:hover {
     background-color: #8a1313; /* Cor mais escura no hover */
 }
 
