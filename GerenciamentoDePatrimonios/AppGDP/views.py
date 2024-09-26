@@ -165,3 +165,15 @@ def update_item(request):
         return redirect('itens')  
 
     return HttpResponse("Método não permitido.", status=405)
+
+def excluir_inventario(request):
+    if request.method == 'POST':
+        num_inventario = request.POST.get('numInventario')
+        
+        # Exclui o item com base no número de inventário
+        try:
+            item = Inventario.objects.get(num_inventario=num_inventario)
+            item.delete()
+            return redirect('itens')  # Redireciona para a lista de itens após exclusão
+        except Inventario.DoesNotExist:
+            return HttpResponse("Item não encontrado.", status=404)

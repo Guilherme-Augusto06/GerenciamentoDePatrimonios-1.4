@@ -15,5 +15,6 @@ urlpatterns = [
         path('buscar', buscar_itens, name='buscar_itens'),
         path('excluir_inventario/', views.excluir_inventario, name='excluir_inventario'),
         path('update-item/', views.update_item, name='update_item'),
+        path('excluir-item/', views.excluir_inventario, name='excluir_inventario'),
 
 ]

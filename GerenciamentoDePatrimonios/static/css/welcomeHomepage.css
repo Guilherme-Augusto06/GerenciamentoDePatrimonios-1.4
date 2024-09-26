@@ -66,35 +66,33 @@
     background-color: #B01818;
 }
 
-.imagem-cabecalho img {
-    height: auto;
-    max-width: 100%;
-    border-radius: 10px;
+.box{
+    width: 220px;
+    height: 220px;
+    transform-style: preserve-3d;
+    animation: myslider 10s linear infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px; /* Ajuste de margem */
 }
 
-.imagem-cabecalho {       /* Estilos para as setas de navegação */
-    position: relative;
-    max-width: 100%;
+@media (max-width: 1024px) {
+    .cabecalho-welcome {
+        flex-direction: column; /* Empilha as divs verticalmente */
+        align-items: center;
+        padding: 30px 20px;
+    }
+
+    .conteudo-cabecalho {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .box {
+        margin: 20px 0; /* Adiciona espaço entre a box e o conteúdo acima */
+    }
 }
-
-.imagem-cabecalho .material-symbols-outlined {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 20px;
-    color: #333;
-    cursor: pointer;
-
-}
-
-.imagem-cabecalho .material-symbols-outlined.arrow_back_ios {
-    left: -40px; /* Ajuste a posição da seta à esquerda */
-}
-
-.imagem-cabecalho .material-symbols-outlined.arrow_forward_ios {
-    right: -40px; /* Ajuste a posição da seta à direita */
-}
-
 
 
 

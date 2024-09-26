@@ -71,11 +71,11 @@
                 <button type="button" id="editButton" onclick="enableEdit()">Editar</button>
                 <button type="submit" id="saveButton" style="display:none;">Salvar</button>
                 <button type="button" class="btn-close" onclick="closeModal('modalItem')">X</button>
+                <button type="button" class="btn-delete" onclick="confirmDelete()">Excluir</button>
             </div>
         </form>
     </div>
 </div>
-
 
 
     <!-- Modal de Adicionar Item -->
@@ -114,7 +114,20 @@
             // Exibe o botão de salvar e oculta o botão de editar
             document.getElementById("editButton").style.display = "none";
             document.getElementById("saveButton").style.display = "inline-block";
+
+            // Altera o action do formulário para o URL de atualização (edição)
+            document.getElementById("itemForm").action = "{% url 'update_item' %}";
         }
+
+        function confirmDelete() {
+            // Confirmação simples antes de excluir
+            if (confirm("Tem certeza de que deseja excluir este item?")) {
+                // Altera o action do formulário para o URL de exclusão
+                document.getElementById("itemForm").action = "{% url 'excluir_inventario' %}";
+                document.getElementById("itemForm").submit();
+            }
+        }
+
 
         function saveChanges() {
             const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Obtém o token CSRF
