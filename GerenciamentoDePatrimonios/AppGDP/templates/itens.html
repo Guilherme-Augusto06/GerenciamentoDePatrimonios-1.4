@@ -6,7 +6,7 @@
 
 <main class="bg-body-i-w">
     <h1>Itens</h1>
-    <h2>Sala - {{ item.sala }}</h2>
+    <h2>Sala  {{ item.sala }}</h2>
 
     <div class="search-container">
         <form id="searchForm" method="GET" action="{% url 'buscar_itens' %}">
@@ -18,9 +18,10 @@
             </div>
         </form>
 
-        <button>
+        <button onclick="openModal('modalFiltro')">
             <span class="material-symbols-outlined" id="iconItens">filter_list</span>
         </button>
+        
 
         <button class="add-button" onclick="openModal('modalAddItem')">
             <span class="material-symbols-outlined" id="iconItens">add_circle</span>
@@ -77,6 +78,32 @@
     </div>
 </div>
 
+<!-- Modal de Filtros -->
+<div id="modalFiltro" class="modal">
+    <div class="modal-content">
+        <button type="button" class="btn-close" onclick="closeModal('modalFiltro')">X</button>
+        <h2>Filtrar Itens</h2>
+        
+        <!-- Filtro por Ordem Alfabética -->
+        <form id="filtroAlfabeticoForm" method="GET" action="{% url 'buscar_itens' %}">
+            <label for="ordem">Ordenar por:</label>
+            <select name="ordem" id="ordem">
+                <option value="A-Z">A-Z</option>
+                <option value="Z-A">Z-A</option>
+            </select>
+            <button type="submit">Aplicar</button>
+        </form>
+
+        <!-- Filtro por Sala -->
+        <form id="filtroSalaForm" method="GET" action="{% url 'buscar_itens' %}">
+            <label for="sala">Filtrar por Sala:</label>
+            <input type="text" name="sala" id="sala" placeholder="Digite o nome da sala">
+            <button type="submit">Aplicar</button>
+        </form>
+    </div>
+</div>
+
+
 
     <!-- Modal de Adicionar Item -->
     <div id="modalAddItem" class="modal">
@@ -103,6 +130,20 @@
     </div>
 
     <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+
         function enableEdit() {
             // Torna os campos editáveis
             document.getElementById("denominacaoInput").removeAttribute("readonly");

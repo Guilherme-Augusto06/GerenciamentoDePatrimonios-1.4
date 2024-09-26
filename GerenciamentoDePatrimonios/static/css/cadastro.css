@@ -92,9 +92,9 @@ main {
     font-size: 64px;
     font-weight: bold;
     font-family: Poppins;
-    margin: 0px;
-    padding: 0px;
-    border: 0px;
+    margin: 0;
+    padding: 0;
+    border: 0;
     background: linear-gradient(to right, var(--color-logo-gradA), var(--color-logo-gradB));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

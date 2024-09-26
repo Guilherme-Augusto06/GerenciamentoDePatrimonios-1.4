@@ -118,17 +118,30 @@ def login(request):
 
 def buscar_itens(request):
     context = {}
-    query = request.GET.get('q')  # Pega o valor digitado no campo de busca
+    query = request.GET.get('q')  # Pega o valor do campo de busca
+    ordem = request.GET.get('ordem')  # Pega o valor da ordem A-Z ou Z-A
+    sala = request.GET.get('sala')  # Pega o valor da sala
+
+    inventario = Inventario.objects.all()
+
     if query:
-        inventario = Inventario.objects.filter(num_inventario__icontains=query)
-    else:
-        inventario = Inventario.objects.all()
+        inventario = inventario.filter(num_inventario__icontains=query)
+    
+    if ordem:
+        if ordem == 'A-Z':
+            inventario = inventario.order_by('denominacao')
+        elif ordem == 'Z-A':
+            inventario = inventario.order_by('-denominacao')
+
+    if sala:
+        inventario = inventario.filter(sala__icontains=sala)
 
     context['inventario'] = inventario
     form = InventarioForm()
     context['form'] = form
     
     return render(request, 'itens.html', context)
+
 
 
 def excluir_inventario(request):
