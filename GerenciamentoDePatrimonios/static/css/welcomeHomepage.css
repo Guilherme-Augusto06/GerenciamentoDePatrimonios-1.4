@@ -268,9 +268,12 @@
 }
 
 .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
     padding: 20px;
+    padding-left: 170px;
 }
 
 /* Cartão de cada item */
@@ -282,6 +285,7 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
     transition: transform 0.3s ease;
     margin-bottom: 200px;
+    margin-right: 280px;
 }
 
 .item-card-w:hover {

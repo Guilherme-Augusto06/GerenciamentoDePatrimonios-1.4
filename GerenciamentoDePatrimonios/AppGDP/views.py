@@ -7,6 +7,9 @@ from .models import Senai
 from django.contrib.auth.models import User
 from .models import Inventario
 from django.core.cache import cache
+from django.http import HttpResponse
+from .models import Inventario
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -128,3 +131,37 @@ def buscar_itens(request):
     return render(request, 'itens.html', context)
 
 
+def excluir_inventario(request):
+    if request.method == 'POST':
+        num_inventario = request.POST.get('num_inventario')
+        print(f"Recebido num_inventario: {num_inventario}")  # Verificando o valor recebido
+
+        # Excluir o item baseado no número de inventário
+        try:
+            item = Inventario.objects.get(num_inventario=num_inventario)
+            item.delete()
+            print(f"Item {num_inventario} excluído com sucesso")  # Log de sucesso
+            return redirect('itens')  # Redirecionar após exclusão
+        except Inventario.DoesNotExist:
+            print(f"Item {num_inventario} não encontrado")  # Log de erro
+            return HttpResponse("Item não encontrado.", status=404)
+
+
+def update_item(request):
+    if request.method == 'POST':
+        num_inventario = request.POST.get('numInventario')
+        
+        # Busca o item no banco de dados
+        item = get_object_or_404(Inventario, num_inventario=num_inventario)
+
+        # Atualiza os valores com base nos dados do formulário
+        item.denominacao = request.POST.get('denominacao')
+        item.localizacao = request.POST.get('localizacao')
+        item.sala = request.POST.get('sala')
+        item.link_imagem = request.POST.get('imagem')
+        item.save()
+
+        # Redireciona de volta à página de itens ou para onde você quiser
+        return redirect('itens')  
+
+    return HttpResponse("Método não permitido.", status=405)

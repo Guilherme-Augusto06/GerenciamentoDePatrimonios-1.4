@@ -41,36 +41,42 @@
         </div>
         {% endfor %}
     </div>
+    <!-- Modal de excluir -->
+     
 
     <!-- Modal de Visualização do Item -->
-    <div id="modalItem" class="modal">
-        <div class="modal-content">
-            <button type="button" class="btn-close" onclick="closeModal('modalItem')">X</button>
-            <h2 class="adicionarH2Itens">Informações</h2>
-            <form>
-                <label for="denominacaoInput">Denominação:</label>
-                <input type="text" id="denominacaoInput" name="denominacao" value="" readonly>
+<!-- Modal de Visualização do Item -->
+<div id="modalItem" class="modal">
+    <div class="modal-content">
+        <button type="button" class="btn-close" onclick="closeModal('modalItem')">X</button>
+        <h2 class="adicionarH2Itens">Informações</h2>
+        <form id="itemForm" method="POST" action="{% url 'update_item' %}">
+            {% csrf_token %}
+            <label for="denominacaoInput">Denominação:</label>
+            <input type="text" id="denominacaoInput" name="denominacao" value="" readonly>
 
-                <label for="numInventarioInput">Número de Inventário:</label>
-                <input type="text" id="numInventarioInput" name="numInventario" value="" readonly>
-                
-                <label for="localizacaoInput">Localização: </label>
-                <input type="text" id="localizacaoInput" name="lozalizacao" value="" readonly>
-
-                <label for="salaInput">Sala:</label>
-                <input type="text" id="salaInput" name="sala" value="" readonly>
-
-                <label for="imagemInput">Imagem:</label>
-                <input type="text" id="imagemInput" name="imagem" value="" readonly>
-
-                <div class="modal-actions">
-                    <button type="button" class="btn-close" onclick="closeModal('modalItem')">X</button>
-                </div>
-                
-            </form>
+            <label for="numInventarioInput">Número de Inventário:</label>
+            <input type="text" id="numInventarioInput" name="numInventario" value="" readonly>
             
-        </div>
+            <label for="localizacaoInput">Localização: </label>
+            <input type="text" id="localizacaoInput" name="localizacao" value="" readonly>
+
+            <label for="salaInput">Sala:</label>
+            <input type="text" id="salaInput" name="sala" value="" readonly>
+
+            <label for="imagemInput">Imagem:</label>
+            <input type="text" id="imagemInput" name="imagem" value="" readonly>
+
+            <div class="modal-actions">
+                <button type="button" id="editButton" onclick="enableEdit()">Editar</button>
+                <button type="submit" id="saveButton" style="display:none;">Salvar</button>
+                <button type="button" class="btn-close" onclick="closeModal('modalItem')">X</button>
+            </div>
+        </form>
     </div>
+</div>
+
+
 
     <!-- Modal de Adicionar Item -->
     <div id="modalAddItem" class="modal">
@@ -97,6 +103,60 @@
     </div>
 
     <script>
+        function enableEdit() {
+            // Torna os campos editáveis
+            document.getElementById("denominacaoInput").removeAttribute("readonly");
+            document.getElementById("numInventarioInput").removeAttribute("readonly");
+            document.getElementById("localizacaoInput").removeAttribute("readonly");
+            document.getElementById("salaInput").removeAttribute("readonly");
+            document.getElementById("imagemInput").removeAttribute("readonly");
+            
+            // Exibe o botão de salvar e oculta o botão de editar
+            document.getElementById("editButton").style.display = "none";
+            document.getElementById("saveButton").style.display = "inline-block";
+        }
+
+        function saveChanges() {
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Obtém o token CSRF
+            const formData = {
+                denominacao: document.getElementById("denominacaoInput").value,
+                numInventario: document.getElementById("numInventarioInput").value,
+                localizacao: document.getElementById("localizacaoInput").value,
+                sala: document.getElementById("salaInput").value,
+                imagem: document.getElementById("imagemInput").value,
+            };
+
+            // Faz uma requisição AJAX para enviar os dados ao servidor
+            fetch('/update-item/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken // Adiciona o token CSRF
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Item atualizado com sucesso!');
+                } else {
+                    alert('Erro ao atualizar o item.');
+                }
+            })
+            .catch(error => console.error('Erro:', error));
+
+            // Alterna novamente os botões
+            document.getElementById("editButton").style.display = "inline-block";
+            document.getElementById("saveButton").style.display = "none";
+
+            // Desativa os campos de input
+            document.getElementById("denominacaoInput").setAttribute("readonly", true);
+            document.getElementById("numInventarioInput").setAttribute("readonly", true);
+            document.getElementById("localizacaoInput").setAttribute("readonly", true);
+            document.getElementById("salaInput").setAttribute("readonly", true);
+            document.getElementById("imagemInput").setAttribute("readonly", true);
+        }
+
         function openItemModal(denominacao, numInventario, linkImagem, localizacao, sala) {
             document.getElementById('denominacaoInput').value = denominacao;
             document.getElementById('numInventarioInput').value = numInventario;
@@ -155,3 +215,4 @@
 
 </main>
 {% endblock %}
+

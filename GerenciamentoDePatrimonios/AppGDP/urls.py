@@ -13,5 +13,7 @@ urlpatterns = [
         path('itens', views.itens, name="itens"),           # Inclui as urls do app blog
         path('adicionar_inventario', views.adicionar_inventario, name="adicionar_inventario"),   # Inclui as urls do app blog
         path('buscar', buscar_itens, name='buscar_itens'),
+        path('excluir_inventario/', views.excluir_inventario, name='excluir_inventario'),
+        path('update-item/', views.update_item, name='update_item'),
 
 ]
